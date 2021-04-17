@@ -7,6 +7,7 @@ from graphql_jwt.settings import jwt_settings
 from orders.models import Cart, Order, PaymentType, BillingInfo, CartObject
 from .types import(ProductType, TagsType, ColorsType, UsersType,
                    UsersAuthType, OrderType, BillingInfoType, PaymentTypeType)
+from django_graphene_permissions.permissions import permissions_checker, IsAuthenticated
 
 
 class UpdateCart(graphene.Mutation):
@@ -174,6 +175,7 @@ class AddOrder(graphene.Mutation):
         region = graphene.String()
         payment = graphene.String()
 
+    @permissions_checker([IsAuthenticated])
     def mutate(self, info, full_name, phone, address_line, city, region, payment):
         user = info.context.user
         userCart = Cart.objects.filter(user=user)
@@ -208,9 +210,11 @@ class SubmitRefId(graphene.Mutation):
         order = graphene.String()
         ref = graphene.String()
 
+    @permissions_checker([IsAuthenticated])
     def mutate(self, info, order, ref):
         # TO DO CHECK ORDERED BY FLAG LATER
-        order = Order.objects.filter(core_order_id=order)
+        order = Order.objects.filter(
+            core_order_id=order, ordered_by=info.context.user)
         if not order.exists():
             raise Exception("order not found")
         order.update(reference_no=ref)
