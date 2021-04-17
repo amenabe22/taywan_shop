@@ -41,10 +41,12 @@ class BillingInfo(models.Model):
 
 
 class PaymentType(models.Model):
-    types = [('cash', 'Cash'), ('bank', 'Bank Payment')]
+    types = [('cash', 'Cash'), ('bank', 'Bank Payment'),
+             ('mob', 'Mobile Banking')]
     type_id = models.UUIDField(
         default=uuid4, editable=False, primary_key=True)
     type_name = models.CharField(max_length=300)
+    icon = models.ImageField(upload_to='payment_method/pics', null=True)
     core_transaction_outlet = models.CharField(
         max_length=4, choices=types, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -70,7 +72,8 @@ class Order(models.Model):
         max_length=10, choices=order_stats, default='pen')
     paid_already = models.BooleanField(default=False)
     reference_no = models.CharField(max_length=300, null=True, blank=True)
-    payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE, null=True)
+    payment_type = models.ForeignKey(
+        PaymentType, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.pk)

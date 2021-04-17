@@ -182,6 +182,9 @@ class AddOrder(graphene.Mutation):
         order = Order.objects.create(
             paid_already=False, ordered_by=user, billing_info=billingInfo)
         # order.billing_info
+        if not userCart[0].items.exists():
+            raise Exception("cart is empty")
+
         for cart in userCart[0].items.all():
             order.products.create(
                 product=cart.product
