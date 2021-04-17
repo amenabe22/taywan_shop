@@ -193,8 +193,8 @@ class AddOrder(graphene.Mutation):
             raise Exception("cart is empty")
 
         for cart in userCart[0].items.all():
-            order.products.create(
-                product=cart
+            order.products.add(
+                cart
             )
         # clear the cart after checkout
         userCart[0].items.clear()
