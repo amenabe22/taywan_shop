@@ -61,7 +61,7 @@ class PaymentType(models.Model):
     icon = models.FileField(upload_to='payment_method/pics', null=True)
     core_transaction_outlet = models.CharField(
         max_length=4, choices=types, null=True, blank=True)
-    payment_detail = models.ForeignKey(PaymentDetail, on_delete=models.CASCADE)
+    payment_detail = models.ForeignKey(PaymentDetail, on_delete=models.CASCADE, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     available = models.BooleanField(default=False)
 
