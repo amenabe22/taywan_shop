@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <meta name=Title content="Taywan store">
+    <meta name=description
+        content="taywan is an e-commerce company located in Ethiopia, that provides affordable items , variety of food categories, electronics and many more ......">
+    <meta name=keywords
+        content="taywan, taywan.store ,taywan store , taywan shop , ethiopia , jijiga , jigjiga , addis ababa, dire dawa , ecommerce , shop , store  ">
+    <link rel=icon href="{% static 'taywanlogo.svg' %}">
+    <title>Taywan</title>
+    <link href="{% static 'dist/app.css' %}" rel=preload as=style>
+    <link href="{% static 'dist/app.js' %}" rel=preload as=script>
+    <link href="{% static 'dist/chunk-vendors.css' %}" rel=preload as=style>
+    <link href="{% static 'dist/chunk-vendors.js' %}" rel=preload as=script>
+    <link href="{% static 'dist/chunk-vendors.css' %}" rel=stylesheet>
+    <link href="{% static 'dist/app.css' %}" rel=stylesheet>
+</head>
+
+<body><noscript><strong>We're sorry but taywan-ui doesn't work properly without JavaScript enabled. Please enable it to
+            continue.</strong></noscript>
+    <div id=app></div>
+    <script src="{% static 'dist/chunk-vendors.js' %}"></script>
+    <script src="{% static 'dist/app.js' %}"></script>
+</body>
+
+</html>
