@@ -1,13 +1,13 @@
 import graphql
 import graphene
 import graphql_jwt
-from orders.models import Cart
 from accounts.models import CustomUser
+from orders.models import Cart, PaymentType
 from django_graphene_permissions import permissions_checker
 from products.models import Product, Category, ParentCategory
 from django_graphene_permissions.permissions import IsAuthenticated
 from .mutations import NewUserMutation, AddToCartUsr, AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder
-from .types import ProductType, TagsType, ColorsType, UsersType, CategoryType, CartType, ParentCategoryType
+from .types import ProductType, TagsType, ColorsType, UsersType, CategoryType, CartType, ParentCategoryType, PaymentTypeType
 
 
 class Query(graphene.ObjectType):
@@ -20,6 +20,10 @@ class Query(graphene.ObjectType):
         CartType, anon=graphene.Boolean(), cart=graphene.String())
     cats = graphene.List(ParentCategoryType)
     cat_prods = graphene.List(ProductType, cat=graphene.String())
+    payment_options = graphene.List(PaymentTypeType)
+
+    def resolve_payment_options(self, info):
+        return PaymentType.objects.filter(available=True)
 
     def resolve_related_cat_prods(self, info, cat, prod):
         prod = Product.objects.filter(id=prod)
