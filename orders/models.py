@@ -46,7 +46,7 @@ class PaymentType(models.Model):
     type_id = models.UUIDField(
         default=uuid4, editable=False, primary_key=True)
     type_name = models.CharField(max_length=300)
-    icon = models.ImageField(upload_to='payment_method/pics', null=True)
+    icon = models.FileField(upload_to='payment_method/pics', null=True)
     core_transaction_outlet = models.CharField(
         max_length=4, choices=types, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
