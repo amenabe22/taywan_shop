@@ -24,6 +24,11 @@ class Query(graphene.ObjectType):
     cat_prods = graphene.List(ProductType, cat=graphene.String())
     payment_options = graphene.List(PaymentTypeType)
     order_data = graphene.Field(OrderType, order=graphene.String())
+    search_prods = graphene.List(ProductType, query=graphene.String())
+
+    def resolve_search_prods(self, info, query):
+        prods = Product.objects.filter(tags__tag=query)
+        return prods
 
     def resolve_order_data(self, info, order):
         orderSet = Order.objects.filter(core_order_id=order)
