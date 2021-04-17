@@ -26,6 +26,10 @@ class Query(graphene.ObjectType):
     payment_options = graphene.List(PaymentTypeType)
     order_data = graphene.Field(OrderType, order=graphene.String())
     search_prods = graphene.List(ProductType, query=graphene.String())
+    filter_trending = graphene.List(ProductType)
+
+    def resolve_filter_trending(self, info):
+        return Product.objects.filter(trending=True)
 
     def resolve_search_prods(self, info, query):
         prods = Product.objects.filter(
