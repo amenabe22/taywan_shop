@@ -199,3 +199,19 @@ class AddOrder(graphene.Mutation):
         # clear the cart after checkout
         userCart[0].items.clear()
         return AddOrder(payload=order)
+
+
+class SubmitRefId(graphene.Mutation):
+    payload = graphene.Boolean()
+
+    class Arguments:
+        order = graphene.String()
+        ref = graphene.String()
+
+    def mutate(self, info, order, ref):
+        # TO DO CHECK ORDERED BY FLAG LATER
+        order = Order.objects.filter(order_id=order)
+        if not order.exists():
+            raise Exception("order not found")
+        order.update(reference_no=ref)
+        return SubmitRefId(payload=True)

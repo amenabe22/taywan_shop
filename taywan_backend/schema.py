@@ -6,7 +6,7 @@ from orders.models import Cart, PaymentType, Order
 from django_graphene_permissions import permissions_checker
 from products.models import Product, Category, ParentCategory
 from django_graphene_permissions.permissions import IsAuthenticated
-from .mutations import(NewUserMutation, AddToCartUsr,
+from .mutations import(NewUserMutation, AddToCartUsr, SubmitRefId,
                        AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder)
 from .types import (ProductType, TagsType, ColorsType, UsersType,
                     CategoryType, CartType, ParentCategoryType, PaymentTypeType, OrderType)
@@ -92,6 +92,7 @@ class Mutations(graphene.ObjectType):
     remove_cart_item = RemoveCartItem.Field()
     update_cart = UpdateCart.Field()
     add_order = AddOrder.Field()
+    submit_ref = SubmitRefId.Field(description="Submit reference ID")
 
 
 schema = graphene.Schema(query=Query, mutation=Mutations)
