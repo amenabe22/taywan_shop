@@ -26,7 +26,7 @@ class Query(graphene.ObjectType):
     order_data = graphene.Field(OrderType, order=graphene.String())
 
     def resolve_order_data(self, info, order):
-        orderSet = Order.objects.filter(order_id=order)
+        orderSet = Order.objects.filter(core_order_id=order)
         if not orderSet.exists():
             raise Exception("order not found")
         return orderSet[0]
