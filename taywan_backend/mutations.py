@@ -177,12 +177,15 @@ class AddOrder(graphene.Mutation):
         user = info.context.user
         userCart = Cart.objects.filter(user=user)
         billingInfo = BillingInfo.objects.create(
-            address_line=address_line,city=city,full_name=full_name,phone=phone,region=region
+            address_line=address_line, city=city, full_name=full_name, phone=phone, region=region
         )
-        order = Order.objects.create(paid_already=False, ordered_by=user,billing_info=billingInfo)
+        order = Order.objects.create(
+            paid_already=False, ordered_by=user, billing_info=billingInfo)
         # order.billing_info
         for cart in userCart[0].items.all():
             order.products.create(
                 product=cart.product
             )
+        # clear the cart after checkout
+        userCart[0].items.all().delete()
         return AddOrder(payload=order)
