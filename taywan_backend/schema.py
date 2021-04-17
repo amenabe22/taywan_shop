@@ -10,6 +10,7 @@ from .mutations import(NewUserMutation, AddToCartUsr, SubmitRefId,
                        AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder)
 from .types import (ProductType, TagsType, ColorsType, UsersType,
                     CategoryType, CartType, ParentCategoryType, PaymentTypeType, OrderType)
+from django.db.models import Q
 
 
 class Query(graphene.ObjectType):
@@ -27,7 +28,8 @@ class Query(graphene.ObjectType):
     search_prods = graphene.List(ProductType, query=graphene.String())
 
     def resolve_search_prods(self, info, query):
-        prods = Product.objects.filter(tags__tag=query)
+        prods = Product.objects.filter(
+            Q(tags__tag=query) | Q(title__icontains=query))
         return prods
 
     def resolve_order_data(self, info, order):
