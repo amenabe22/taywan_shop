@@ -172,15 +172,22 @@ class AddOrder(graphene.Mutation):
         address_line = graphene.String()
         city = graphene.String()
         region = graphene.String()
+        payment = graphene.String()
 
-    def mutate(self, info, full_name, phone, address_line, city, region):
+    def mutate(self, info, full_name, phone, address_line, city, region, payment):
         user = info.context.user
         userCart = Cart.objects.filter(user=user)
         billingInfo = BillingInfo.objects.create(
             address_line=address_line, city=city, full_name=full_name, phone=phone, region=region
         )
+        # check payment option availablity
+        payment_opt = PaymentType.objects.filter(type_id=payment)
+        if not payment_opt.exists():
+            raise Exception("payment type unknown")
         order = Order.objects.create(
-            paid_already=False, ordered_by=user, billing_info=billingInfo)
+            paid_already=False, ordered_by=user,
+            billing_info=billingInfo,
+            payment_type=payment_opt[0])
         # order.billing_info
         if not userCart[0].items.exists():
             raise Exception("cart is empty")
