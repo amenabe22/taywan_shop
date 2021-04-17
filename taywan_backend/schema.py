@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
 
     def resolve_search_prods(self, info, query):
         prods = Product.objects.filter(
-            Q(tags__tag__contains=query) | Q(title__icontains=query))
+            Q(tags__tag__icontains=query) | Q(title__icontains=query))
         return prods
 
     def resolve_order_data(self, info, order):
