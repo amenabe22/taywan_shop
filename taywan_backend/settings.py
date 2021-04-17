@@ -128,11 +128,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'graphql_jwt.backends.JSONWebTokenBackend',
 ]
-GRAPHQL_JWT = {
-    'JWT_VERIFY_EXPIRATION': False,
-    'JWT_EXPIRATION_DELTA': timedelta(minutes=600000),
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=700000),
-}
+# GRAPHQL_JWT = {
+#     'JWT_VERIFY_EXPIRATION': False,
+#     'JWT_EXPIRATION_DELTA': timedelta(minutes=600000),
+#     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=700000),
+# }
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
