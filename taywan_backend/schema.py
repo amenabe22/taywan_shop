@@ -28,9 +28,8 @@ class Query(graphene.ObjectType):
     search_prods = graphene.List(ProductType, query=graphene.String())
 
     def resolve_search_prods(self, info, query):
-
         prods = Product.objects.filter(
-            tags__tag=query, title__icontains=query)
+            Q(tags__tag=query) | Q(title__icontains=query))
         return prods
 
     def resolve_order_data(self, info, order):
