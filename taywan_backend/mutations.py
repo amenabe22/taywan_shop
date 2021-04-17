@@ -197,5 +197,5 @@ class AddOrder(graphene.Mutation):
                 product=cart.product
             )
         # clear the cart after checkout
-        userCart[0].items.all().delete()
+        userCart[0].items.clear()
         return AddOrder(payload=order)
