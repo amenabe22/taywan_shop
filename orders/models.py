@@ -1,3 +1,4 @@
+import random
 from uuid import uuid4
 from django.db import models
 from products.models import Product
@@ -66,6 +67,7 @@ class Order(models.Model):
     ]
     core_order_id = models.UUIDField(
         default=uuid4, editable=False, primary_key=True)
+    order_id = models.CharField(max_length=500, null=True)
     billing_info = models.ForeignKey(
         BillingInfo, on_delete=models.CASCADE, null=True)
     ordered_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -78,3 +80,9 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    def save(self, *args, **kwargs):
+        a = random.sample(range(10), 3)
+        self.order_id = "#{}".format(int(str(random.randint(1, 9)) +
+                            str(a[0]) + str(a[1]) + str(a[2])))
+        super(Order, self).save(*args, **kwargs)
