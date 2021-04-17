@@ -29,7 +29,10 @@ class Query(graphene.ObjectType):
 
     def resolve_search_prods(self, info, query):
         prods = Product.objects.filter(
-            Q(tags__tag__icontains=query) | Q(title__icontains=query))
+            Q(tags__tag__icontains=query) | Q(title__icontains=query)).distinct()
+        # prods = Product.objects.filter(
+        #     tags__tag__icontains=query, title__icontains=query).distinct()
+
         return prods
 
     def resolve_order_data(self, info, order):
@@ -70,7 +73,7 @@ class Query(graphene.ObjectType):
             cart = Cart.objects.filter(user=info.context.user)
         return cart
 
-    @permissions_checker([IsAuthenticated])
+    @ permissions_checker([IsAuthenticated])
     def resolve_user_data(self, info):
         user = CustomUser.objects.filter(user_id=info.context.user.user_id)
         if not user.exists():
