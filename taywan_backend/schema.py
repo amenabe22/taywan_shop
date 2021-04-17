@@ -2,12 +2,14 @@ import graphql
 import graphene
 import graphql_jwt
 from accounts.models import CustomUser
-from orders.models import Cart, PaymentType
+from orders.models import Cart, PaymentType, Order
 from django_graphene_permissions import permissions_checker
 from products.models import Product, Category, ParentCategory
 from django_graphene_permissions.permissions import IsAuthenticated
-from .mutations import NewUserMutation, AddToCartUsr, AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder
-from .types import ProductType, TagsType, ColorsType, UsersType, CategoryType, CartType, ParentCategoryType, PaymentTypeType
+from .mutations import(NewUserMutation, AddToCartUsr,
+                       AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder)
+from .types import (ProductType, TagsType, ColorsType, UsersType,
+                    CategoryType, CartType, ParentCategoryType, PaymentTypeType, OrderType)
 
 
 class Query(graphene.ObjectType):
@@ -21,6 +23,13 @@ class Query(graphene.ObjectType):
     cats = graphene.List(ParentCategoryType)
     cat_prods = graphene.List(ProductType, cat=graphene.String())
     payment_options = graphene.List(PaymentTypeType)
+    order_data = graphene.Field(OrderType, order=graphene.String())
+
+    def resolve_order_data(self, info, order):
+        orderSet = Order.objects.filter(order_id=order)
+        if not orderSet.exists():
+            raise Exception("order not found")
+        return orderSet[0]
 
     def resolve_payment_options(self, info):
         return PaymentType.objects.filter(available=True)

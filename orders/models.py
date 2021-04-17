@@ -84,5 +84,5 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         a = random.sample(range(10), 3)
         self.order_id = "#{}".format(int(str(random.randint(1, 9)) +
-                            str(a[0]) + str(a[1]) + str(a[2])))
+                                         str(a[0]) + str(a[1]) + str(a[2])))
         super(Order, self).save(*args, **kwargs)
