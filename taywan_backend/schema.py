@@ -6,7 +6,7 @@ from accounts.models import CustomUser
 from django_graphene_permissions import permissions_checker
 from products.models import Product, Category, ParentCategory
 from django_graphene_permissions.permissions import IsAuthenticated
-from .mutations import NewUserMutation, AddToCartUsr, AddToCartAnon, RemoveCartItem, UpdateCart, AddOrder
+from .mutations import NewUserMutation, AddToCartUsr, AddToCartAnon, RemoveCartItem, UpdateCart
 from .types import ProductType, TagsType, ColorsType, UsersType, CategoryType, CartType, ParentCategoryType
 
 
@@ -78,7 +78,7 @@ class Mutations(graphene.ObjectType):
     add_cart_usr = AddToCartUsr.Field(description="Add to cart for users")
     remove_cart_item = RemoveCartItem.Field()
     update_cart = UpdateCart.Field()
-    add_order = AddOrder.Field()
+    # add_order = AddOrder.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutations)

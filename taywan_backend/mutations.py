@@ -163,22 +163,22 @@ class NewUserMutation(graphene.Mutation):
         return NewUserMutation(payload={"udata": user, "token": token})
 
 
-class AddOrder(graphene.Mutation):
-    payload = graphene.Field
+# class AddOrder(graphene.Mutation):
+#     payload = graphene.Field
 
-    class Arguments:
-        full_name = graphene.String()
-        phone = graphene.String()
-        address_line = graphene.String()
-        city = graphene.String()
-        region = graphene.String()
+#     class Arguments:
+#         full_name = graphene.String()
+#         phone = graphene.String()
+#         address_line = graphene.String()
+#         city = graphene.String()
+#         region = graphene.String()
 
-    def mutate(self, info, full_name, phone, address_line, city, region):
-        user = info.context.user
-        userCart = Cart.objects.filter(user=user)
-        order = Order.objects.create(paid_already=False, ordered_by=user)
-        # order.billing_info
-        for cart in userCart[0].items:
-            order.products.create(
-                product=cart.product
-            )
+#     def mutate(self, info, full_name, phone, address_line, city, region):
+#         user = info.context.user
+#         userCart = Cart.objects.filter(user=user)
+#         order = Order.objects.create(paid_already=False, ordered_by=user)
+#         # order.billing_info
+#         for cart in userCart[0].items:
+#             order.products.create(
+#                 product=cart.product
+#             )
