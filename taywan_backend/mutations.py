@@ -176,7 +176,10 @@ class AddOrder(graphene.Mutation):
     def mutate(self, info, full_name, phone, address_line, city, region):
         user = info.context.user
         userCart = Cart.objects.filter(user=user)
-        order = Order.objects.create(paid_already=False, ordered_by=user)
+        billingInfo = BillingInfo.objects.create(
+            address_line=address_line,city=city,full_name=full_name,phone=phone,region=region
+        )
+        order = Order.objects.create(paid_already=False, ordered_by=user,billing_info=billingInfo)
         # order.billing_info
         for cart in userCart[0].items.all():
             order.products.create(
