@@ -210,7 +210,7 @@ class SubmitRefId(graphene.Mutation):
 
     def mutate(self, info, order, ref):
         # TO DO CHECK ORDERED BY FLAG LATER
-        order = Order.objects.filter(order_id=order)
+        order = Order.objects.filter(core_order_id=order)
         if not order.exists():
             raise Exception("order not found")
         order.update(reference_no=ref)
