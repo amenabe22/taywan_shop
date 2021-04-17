@@ -194,7 +194,7 @@ class AddOrder(graphene.Mutation):
 
         for cart in userCart[0].items.all():
             order.products.create(
-                product=cart.product
+                product=cart
             )
         # clear the cart after checkout
         userCart[0].items.clear()
