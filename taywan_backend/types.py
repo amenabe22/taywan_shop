@@ -1,8 +1,8 @@
 import graphene
 from accounts.models import CustomUser
 from graphene_django import DjangoObjectType
-from orders.models import Cart, CartObject, Order, BillingInfo, PaymentType
 from products.models import Color, Tag, Product, Category, ParentCategory
+from orders.models import Cart, CartObject, Order, BillingInfo, PaymentType, PaymentDetail
 
 
 class OrderType(DjangoObjectType):
@@ -63,3 +63,8 @@ class CartTypeType(DjangoObjectType):
 class ParentCategoryType(DjangoObjectType):
     class Meta:
         model = ParentCategory
+
+
+class PaymentDetailType(DjangoObjectType):
+    class Meta:
+        model = PaymentDetail

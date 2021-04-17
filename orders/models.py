@@ -41,6 +41,17 @@ class BillingInfo(models.Model):
         return str(self.binfo_id)
 
 
+class PaymentDetail(models.Model):
+    detail_id = models.UUIDField(
+        default=uuid4, editable=False, primary_key=True)
+    detail_instruction = models.TextField(blank=True)
+    account_name = models.CharField(max_length=800, blank=True)
+    account_no = models.CharField(max_length=500, blank=True)
+
+    def __str__(self):
+        return str(self.detail_id)
+
+
 class PaymentType(models.Model):
     types = [('cash', 'Cash'), ('bank', 'Bank Payment'),
              ('mob', 'Mobile Banking')]
@@ -50,6 +61,7 @@ class PaymentType(models.Model):
     icon = models.FileField(upload_to='payment_method/pics', null=True)
     core_transaction_outlet = models.CharField(
         max_length=4, choices=types, null=True, blank=True)
+    payment_detail = models.ForeignKey(PaymentDetail, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     available = models.BooleanField(default=False)
 
