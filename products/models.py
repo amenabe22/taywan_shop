@@ -14,7 +14,9 @@ class ParentCategory(models.Model):
 class Category(models.Model):
     id = models.UUIDField(default=uuid4, editable=False, primary_key=True)
     cat_name = models.CharField(max_length=200)
-    parent = models.ForeignKey(ParentCategory, on_delete=models.CASCADE, null=True)
+    parent = models.ForeignKey(
+        ParentCategory, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.cat_name
 
@@ -52,6 +54,8 @@ class Product(models.Model):
         ParentCategory, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     description = models.TextField(null=True)
+    discount = models.BigIntegerField(
+        null=True, blank=True, help_text="Discount percentage for product sales")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
