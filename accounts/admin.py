@@ -1,5 +1,5 @@
 from django import forms
-from .models import  CustomUser
+from .models import CustomUser
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
@@ -61,11 +61,12 @@ class CustomUserAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'username', 'is_staff',)
+    list_display = ('user_id', 'email', 'username', 'first_name', 'is_staff',)
+    list_display_links = ('user_id', 'email',)
     # list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email',  'username','first_name','last_name','birth_date','phone','is_blocked',
-                            'is_staff', 'password')}),
+        (None, {'fields': ('email',  'username', 'first_name', 'last_name', 'birth_date', 'phone', 'is_blocked',
+                           'is_staff', 'password')}),
         # ('Personal info', {'fields': ('date_of_birth',)}),
         ('Permissions', {'fields': ('is_superuser',)}),
         ('Important dates', {'fields': ('last_login',)}),
