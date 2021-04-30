@@ -26,4 +26,5 @@ celery
 celery-progress
 django-graphql-playground
 django_graphene_permissions
+django-material-admin
 #ffmpeg-python==0.1.1

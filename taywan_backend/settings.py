@@ -1,6 +1,7 @@
 import os
-from datetime import timedelta
 from pathlib import Path
+from datetime import timedelta
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -37,6 +38,8 @@ INSTALLED_APPS += [
 ]
 # 3rd party apps
 INSTALLED_APPS += [
+    'material',
+    'material.admin',
     # 'jet_django',
     'graphene_django',
     'corsheaders',
@@ -133,6 +136,34 @@ AUTHENTICATION_BACKENDS = [
 #     'JWT_EXPIRATION_DELTA': timedelta(minutes=600000),
 #     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=700000),
 # }
+MATERIAL_ADMIN_SITE = {
+    'HEADER':  _('Taywan Adminstration'),  # Admin site header
+    'TITLE':  _('Ashewa Adminstration'),  # Admin site title
+    # Admin site favicon (path to static should be specified)
+    'FAVICON':  'path/to/favicon',
+    'MAIN_BG_COLOR':  '#21296a',  # Admin site main color, css color should be specified
+    # Admin site main hover color, css color should be specified
+    'MAIN_HOVER_COLOR':  '#21296aad',
+    # Admin site profile picture (path to static should be specified)
+    'PROFILE_PICTURE':  'img/taylogo.png',
+    # Admin site profile background (path to static should be specified)
+    'PROFILE_BG':  'img/education.jpg',
+    # Admin site logo on login page (path to static should be specified)
+    'LOGIN_LOGO':  'path/to/image',
+    # Admin site background on login/logout pages (path to static should be specified)
+    'LOGOUT_BG':  'path/to/image',
+    'SHOW_THEMES':  True,  # Show default admin themes button
+    'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
+    'NAVBAR_REVERSE': True,  # Hide side navbar by default
+    'SHOW_COUNTS': True,  # Show instances counts for each model
+    'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
+        'sites': 'send',
+    },
+    'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
+        'site': 'contact_mail',
+    }
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

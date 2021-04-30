@@ -22,6 +22,11 @@ class GqlView(FileUploadGraphQLView, LoginRequiredMixin):
     pass
 
 
+# default: "Django Administration"
+admin.site.site_header = 'Taywan'
+# default: "Site administration"
+admin.site.index_title = 'Taywan Admin'
+admin.site.site_title = 'Taywan Admin'
 urlpatterns = [
     path('admin-core12/', admin.site.urls),
     path('graphql/',  csrf_exempt(jwt_cookie(GqlView.as_view(graphiql=False)))),
