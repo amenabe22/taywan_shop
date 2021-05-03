@@ -147,7 +147,7 @@ MATERIAL_ADMIN_SITE = {
     # Admin site profile picture (path to static should be specified)
     'PROFILE_PICTURE':  'img/taylogo.png',
     # Admin site profile background (path to static should be specified)
-    'PROFILE_BG':  'img/education.jpg',
+    'PROFILE_BG':  'img/taylogo.png',
     # Admin site logo on login page (path to static should be specified)
     'LOGIN_LOGO':  'img/education.jpg',
     # Admin site background on login/logout pages (path to static should be specified)
