@@ -65,9 +65,11 @@ class CustomUserAdmin(UserAdmin):
     list_display_links = ('user_id', 'email',)
     # list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email',  'username', 'first_name', 'last_name', 'birth_date', 'phone', 'is_blocked',
-                           'is_staff', 'password')}),
+        (None, {'fields': ('email',  'username', 'first_name',
+                           'last_name', 'birth_date', 'phone', 'password', 'is_staff')}),
         # ('Personal info', {'fields': ('date_of_birth',)}),
+        ('Admin Privillages', {'fields': ('groups',
+                                          'is_blocked',)}),
         ('Permissions', {'fields': ('is_superuser',)}),
         ('Important dates', {'fields': ('last_login',)}),
     )
