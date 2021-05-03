@@ -149,9 +149,9 @@ MATERIAL_ADMIN_SITE = {
     # Admin site profile background (path to static should be specified)
     'PROFILE_BG':  'img/education.jpg',
     # Admin site logo on login page (path to static should be specified)
-    'LOGIN_LOGO':  'path/to/image',
+    'LOGIN_LOGO':  'img/education.jpg',
     # Admin site background on login/logout pages (path to static should be specified)
-    'LOGOUT_BG':  'path/to/image',
+    'LOGOUT_BG':  'img/education.jpg',
     'SHOW_THEMES':  True,  # Show default admin themes button
     'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
     'NAVBAR_REVERSE': True,  # Hide side navbar by default
